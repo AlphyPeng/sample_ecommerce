@@ -33,6 +33,8 @@ if (isset($_POST['editFname'], $_POST['editLname'], $_POST['editAddress'])) {
             $profileimage_path = "../../../img/user_image" . $profileImage;
 
             move_uploaded_file($profileimage_temp, $profileimage_path);
+        } else {
+            $profileImage = $profileimage_path;
         }
         $userId = $_SESSION['user_id'];
         $sql = "UPDATE `user` SET first_name = '$editFname', last_name = '$editLname', address = '$editAddress', image = '$profileImage' WHERE id = '$userId'";

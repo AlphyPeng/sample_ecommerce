@@ -22,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 $_SESSION['fname'] = $row['first_name'];
                 $_SESSION['lname'] = $row['last_name'];
                 $_SESSION['email'] = $row['email_address'];
+                $_SESSION['image'] = $row['image'];
                 $_SESSION['contact'] = $row['contact'];
                 $_SESSION['address'] = $row['address'];
 

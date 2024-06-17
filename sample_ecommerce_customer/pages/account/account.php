@@ -20,7 +20,11 @@ include '../TEMPLATES/header.php';
                         <div class="tab-sub-content d-flex justify-content-between align-items-center">
                             <div class="tab-header">
                                 <div class="user-img-container">
-                                    <img src="../../images/person-1.jpg" alt="Profile Picture" class="profile-picture">
+                                    <?php if (!isset($_SESSION['image']) && !empty($_SESSION['image'])) { ?>
+                                        <img src="../../images/person-1.jpg" alt="Profile Image" class="profile-picture">
+                                    <?php } else { ?>
+                                        <img src="<?php echo '../../../img/user_image' . $_SESSION['image'] ?>" alt="<?php echo $_SESSION['image'] ?>" class="profile-picture">
+                                    <?php } ?>
                                 </div>
                                 <div class="user-img-details">
                                     <h4 id="accname" name="accname"><?php echo $_SESSION['fname'] . " " .  $_SESSION['lname']; ?></h4>
@@ -78,7 +82,7 @@ include '../TEMPLATES/header.php';
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Edit</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="editNameAddModal" method="POST" action="account.php">
+            <form id="editNameAddModal" method="POST" action="account.php" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-6 mb-3">
@@ -97,6 +101,16 @@ include '../TEMPLATES/header.php';
                         <input type="text" class="form-control" id="editAddress" name="editAddress" value="<?php echo $_SESSION['address']; ?>">
                         <span class="error text-danger" id="addressError"></span>
                     </div>
+                    <div class="upload-container mb-3">
+                        <input type="file" class="form-control" id="uploadImage" name="uploadImage">
+                        <label for="uploadImage" class="form-label">
+                            <span>Upload Image</span>
+                        </label>
+                        <span class="file-name">No file chosen</span>
+                    </div>
+                    <input type="hidden" name="profileimage_path" value="<?php echo $_SESSION['image']; ?>">
+
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

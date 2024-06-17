@@ -12,13 +12,14 @@ session_start();
 // Logged In
 if (
     isset($_SESSION['user_id']) && isset($_SESSION['username']) && isset($_SESSION['fname']) && isset($_SESSION['lname'])
-    && isset($_SESSION['email']) && isset($_SESSION['contact']) && isset($_SESSION['address'])
+    && isset($_SESSION['email']) && isset($_SESSION['image']) && isset($_SESSION['contact']) && isset($_SESSION['address'])
 ) {
     $user_id = $_SESSION['user_id'];
     $username = $_SESSION['username'];
     $fname = $_SESSION['fname'];
     $lname = $_SESSION['lname'];
     $email = $_SESSION['email'];
+    $profileImg = $_SESSION['image'];
     $contact = $_SESSION['contact'];
     $address = $_SESSION['address'];
 }

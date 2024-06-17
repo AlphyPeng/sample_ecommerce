@@ -20,11 +20,20 @@ include '../TEMPLATES/header.php';
                         <div class="tab-sub-content d-flex justify-content-between align-items-center">
                             <div class="tab-header">
                                 <div class="user-img-container">
-                                    <?php if (!isset($_SESSION['image']) && !empty($_SESSION['image'])) { ?>
-                                        <img src="../../images/person-1.jpg" alt="Profile Image" class="profile-picture">
-                                    <?php } else { ?>
-                                        <img src="<?php echo '../../../img/user_image' . $_SESSION['image'] ?>" alt="<?php echo $_SESSION['image'] ?>" class="profile-picture">
-                                    <?php } ?>
+                                    <?php
+                                    if (!isset($_SESSION['image']) || empty($_SESSION['image'])) {
+                                        // If image is not set or is empty, show the default image
+                                    ?>
+                                        <img src="../../images/default-profile.png" alt="Profile Image" class="profile-picture">
+                                    <?php
+                                    } else {
+                                        // If image is set and not empty, show the user image
+                                    ?>
+                                        <img src="<?php echo '../../../img/user_image' . $_SESSION['image']; ?>" alt="<?php echo $_SESSION['image']; ?>" class="profile-picture">
+                                    <?php
+                                    }
+                                    ?>
+
                                 </div>
                                 <div class="user-img-details">
                                     <h4 id="accname" name="accname"><?php echo $_SESSION['fname'] . " " .  $_SESSION['lname']; ?></h4>
@@ -38,8 +47,8 @@ include '../TEMPLATES/header.php';
                         <div class="tab-sub-content d-flex justify-content-between align-items-center">
                             <div class="tab-details">
                                 <h3 class="mb-3">Personal Information</h3>
-                                <p><strong>Email:</strong> <?php echo $email ?></p>
-                                <p><strong>Contact:</strong> <?php echo $contact ?></p>
+                                <p><strong>Email:</strong> <?php echo $_SESSION['email'] ?></p>
+                                <p><strong>Contact:</strong> <?php echo $_SESSION['contact'] ?></p>
                             </div>
                             <div class="edit-button">
                                 <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#personalInfoEditModal"><i class="bi bi-pen me-2"></i>Edit</button>

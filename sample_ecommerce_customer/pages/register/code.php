@@ -28,8 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 }
             } else {
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-                $sql = "INSERT INTO user(first_name, last_name, email_address, username, password, contact, address) 
-             VALUES('$first_name', '$last_name','$email', '$username', '$hashed_password', '$contact_no', '$address')";
+                $sql = "INSERT INTO user(first_name, last_name, email_address, username, password, contact, address, account_type) 
+             VALUES('$first_name', '$last_name','$email', '$username', '$hashed_password', '$contact_no', '$address', 2)";
 
                 if (mysqli_query($conn, $sql)) {
                     $response['status'] = 'success';

@@ -16,19 +16,24 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if (mysqli_num_rows($result) === 1) {
             $row = mysqli_fetch_assoc($result);
 
-            if (password_verify($password, $row['password'])) {
-                $_SESSION['user_id'] = $row['id'];
-                $_SESSION['username'] = $row['username'];
-                $_SESSION['fname'] = $row['first_name'];
-                $_SESSION['lname'] = $row['last_name'];
-                $_SESSION['email'] = $row['email_address'];
-                $_SESSION['image'] = $row['image'];
-                $_SESSION['contact'] = $row['contact'];
-                $_SESSION['address'] = $row['address'];
+            if ($row['account_type'] == 2) {
+                if (password_verify($password, $row['password'])) {
+                    $_SESSION['user_id'] = $row['id'];
+                    $_SESSION['username'] = $row['username'];
+                    $_SESSION['fname'] = $row['first_name'];
+                    $_SESSION['lname'] = $row['last_name'];
+                    $_SESSION['email'] = $row['email_address'];
+                    $_SESSION['image'] = $row['image'];
+                    $_SESSION['contact'] = $row['contact'];
+                    $_SESSION['address'] = $row['address'];
 
-                $response['status'] = 'success';
-                $response['message'] = 'Login successful. Redirecting...';
+                    $response['status'] = 'success';
+                    $response['message'] = 'Login successful. Redirecting...';
+                } else {
+                    $response['errors']['passwordError'] = 'Password is incorrect.';
+                }
             } else {
+                $response['errors']['useremailError'] = 'Username or Email is incorrect.';
                 $response['errors']['passwordError'] = 'Password is incorrect.';
             }
         } else {

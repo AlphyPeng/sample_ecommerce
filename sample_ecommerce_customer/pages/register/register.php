@@ -1,6 +1,5 @@
 <?php
 include '../TEMPLATES/header.php';
-include 'code.php';
 ?>
 
 <div class="untree_co-section register-section before-footer-section">

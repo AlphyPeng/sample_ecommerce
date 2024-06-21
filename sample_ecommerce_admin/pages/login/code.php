@@ -1,6 +1,7 @@
 <?php include '../../config.php'; ?>
 
 <?php
+session_name("admin_session");
 session_start();
 $response = array('status' => '', 'message' => '', 'errors' => array());
 
@@ -22,18 +23,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     $_SESSION['fname'] = $row['first_name'];
                     $_SESSION['lname'] = $row['last_name'];
                     $_SESSION['email'] = $row['email_address'];
-                    $_SESSION['image'] = $row['image'];
-                    $_SESSION['contact'] = $row['contact'];
-                    $_SESSION['address'] = $row['address'];
 
                     $response['status'] = 'success';
                     $response['message'] = 'Login successful. Redirecting...';
                 } else {
                     $response['errors']['passwordError'] = 'Password is incorrect.';
                 }
+            } else if ($row['account_type'] == 2) {
+                if (password_verify($password, $row['password'])) {
+                    $response['errors']['useremailError'] = 'Username or Email is incorrect.';
+                }
             } else {
                 $response['errors']['useremailError'] = 'Username or Email is incorrect.';
                 $response['errors']['passwordError'] = 'Password is incorrect.';
+                $response['status'] = 'error';
             }
         } else {
             $response['errors']['useremailError'] = 'Username or Email is incorrect.';
@@ -52,4 +55,5 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 }
 
 echo json_encode($response);
+
 ?>

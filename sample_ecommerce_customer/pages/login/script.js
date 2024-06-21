@@ -13,6 +13,8 @@ $(document).ready(function () {
         $("span.error").text("");
         if (response.status === "success") {
           window.location.href = "../main/main.php";
+        } else if (response.status === "error") {
+          window.location.href = "login.php";
         } else {
           if (response.errors) {
             $.each(response.errors, function (key, message) {

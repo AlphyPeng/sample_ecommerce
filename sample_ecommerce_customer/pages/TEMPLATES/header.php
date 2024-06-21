@@ -7,6 +7,7 @@
 */ -->
 
 <?php
+session_name("customer_session");
 session_start();
 
 // Logged In

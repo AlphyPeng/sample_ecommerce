@@ -2,6 +2,7 @@
 include '../../config.php';
 ?>
 <?php
+session_name("customer_session");
 session_start();
 $response = array('status' => '', 'message' => '', 'errors' => array());
 
@@ -32,9 +33,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 } else {
                     $response['errors']['passwordError'] = 'Password is incorrect.';
                 }
+            } else if ($row['account_type'] == 1) {
+                if (password_verify($password, $row['password'])) {
+                    $response['errors']['useremailError'] = 'Username or Email is incorrect.';
+                }
             } else {
                 $response['errors']['useremailError'] = 'Username or Email is incorrect.';
                 $response['errors']['passwordError'] = 'Password is incorrect.';
+                $response['status'] = 'error';
             }
         } else {
             $response['errors']['useremailError'] = 'Username or Email is incorrect.';

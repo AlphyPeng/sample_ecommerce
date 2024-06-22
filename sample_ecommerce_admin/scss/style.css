@@ -1,0 +1,47 @@
+#adminTable th, #adminTable td, #customerTable th, #customerTable td, #productTable th, #productTable td {
+  text-align: left;
+}
+
+#adminTable td.dt-empty, #customerTable td.dt-empty, #productTable td.dt-empty {
+  text-align: center;
+}
+
+#productTable tbody td.product_image-container {
+  width: 15%;
+}
+#productTable tbody td.product_image-container img {
+  width: 50px;
+}
+
+.add-button {
+  width: 150px;
+  height: 40px;
+  font-size: 1rem;
+}
+
+.upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.upload-container .form-control {
+  display: none;
+}
+.upload-container .form-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  width: 100%;
+  padding: 20px;
+  font-size: 20px;
+  border: 2px dashed #ced4da;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.upload-container .form-label:hover {
+  border-color: #6a6a6a;
+}
+.upload-container .form-label span {
+  color: #6a6a6a;
+}/*# sourceMappingURL=style.css.map */

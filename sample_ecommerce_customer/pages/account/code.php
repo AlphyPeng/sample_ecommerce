@@ -2,6 +2,7 @@
 include '../../config.php';
 ?>
 <?php
+session_name("customer_session");
 session_start();
 
 $response = array('status' => '', 'message' => '', 'errors' => array());
@@ -30,7 +31,7 @@ if (isset($_POST['editFname'], $_POST['editLname'], $_POST['editAddress'])) {
                 exit;
             }
 
-            $profileimage_path = "../../../img/user_image" . $profileImage;
+            $profileimage_path = "../../../img/user_image/" . $profileImage;
 
             move_uploaded_file($profileimage_temp, $profileimage_path);
         } else {

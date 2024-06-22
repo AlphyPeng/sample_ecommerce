@@ -109,7 +109,7 @@ if (
                                 <?php if (!isset($_SESSION['image']) || empty($_SESSION['image'])) { ?>
                                     <img src="../../images/default-profile.png">
                                 <?php } else { ?>
-                                    <img src="<?php echo '../../../img/user_image' . $_SESSION['image'] ?>">
+                                    <img src="<?php echo '../../../img/user_image/' . $_SESSION['image'] ?>">
                                 <?php } ?>
 
                                 <?php echo $_SESSION['username']; ?>

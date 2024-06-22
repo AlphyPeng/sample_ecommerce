@@ -29,7 +29,7 @@ include '../TEMPLATES/header.php';
                                     } else {
                                         // If image is set and not empty, show the user image
                                     ?>
-                                        <img src="<?php echo '../../../img/user_image' . $_SESSION['image']; ?>" alt="<?php echo $_SESSION['image']; ?>" class="profile-picture">
+                                        <img src="<?php echo '../../../img/user_image/' . $_SESSION['image']; ?>" alt="<?php echo $_SESSION['image']; ?>" class="profile-picture">
                                     <?php
                                     }
                                     ?>

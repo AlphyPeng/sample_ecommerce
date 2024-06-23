@@ -54,6 +54,7 @@ function productTable() {
                               <td>${product.product_name}</td>
                               <td>${product.product_description}</td>
                               <td>${product.product_quantity}</td>
+                              <td>₱ ${product.product_price}</td>
                               <td class="product_image-container">
                                  <img class="product-image " src="../../../img/products/${product.product_image}">
                               </td>

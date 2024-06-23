@@ -4,11 +4,12 @@
 $response = array('status' => '', 'message' => '', 'errors' => array());
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (!empty($_POST['addPName']) && !empty($_POST['addPDescription']) && !empty($_POST['addPQuantity']) && !empty($_FILES['addPImage']['name'])) {
+    if (!empty($_POST['addPName']) && !empty($_POST['addPDescription']) && !empty($_POST['addPQuantity']) && !empty($_POST['addPPrice']) && !empty($_FILES['addPImage']['name'])) {
 
         $product_name = mysqli_real_escape_string($conn, $_POST['addPName']);
         $product_description = mysqli_real_escape_string($conn, $_POST['addPDescription']);
         $product_quantity = mysqli_real_escape_string($conn, $_POST['addPQuantity']);
+        $product_price = mysqli_real_escape_string($conn, $_POST['addPPrice']);
 
         $product_image = $_FILES["addPImage"]["name"];
         $tempname = $_FILES["addPImage"]["tmp_name"];
@@ -16,8 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         move_uploaded_file($tempname, $folder);
 
-        $sql = "INSERT INTO `products` (`product_name`, `product_description`, `product_quantity`, `product_image`) 
-     VALUES ('$product_name', '$product_description', '$product_quantity', '$product_image')";
+        $sql = "INSERT INTO `products` (`product_name`, `product_description`, `product_quantity`, `product_price`, `product_image`) 
+     VALUES ('$product_name', '$product_description', '$product_quantity', '$product_price', '$product_image')";
 
         if (mysqli_query($conn, $sql)) {
             $response['status'] = 'success';
@@ -32,6 +33,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         if (empty($_POST['addPQuantity'])) {
             $response['errors']['pquantityError'] = "Quantity is required.";
+        }
+        if (empty($_POST['addPPrice'])) {
+            $response['errors']['ppriceError'] = "Quantity is required.";
         }
         if (empty($_POST['addPImage'])) {
             $response['errors']['pimageError'] = "Product image is required.";

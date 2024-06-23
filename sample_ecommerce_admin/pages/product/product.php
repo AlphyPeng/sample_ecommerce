@@ -31,6 +31,7 @@ include '../TEMPLATES/header.php';
                                 <th>Product Name</th>
                                 <th>Description</th>
                                 <th>Quantity</th>
+                                <th>Price</th>
                                 <th>Image</th>
                                 <th>Action</th>
                             </tr>
@@ -69,6 +70,11 @@ include '../TEMPLATES/header.php';
                             <label for="addPQuantity" class="form-label">Quantity</label>
                             <input type="number" class="form-control" id="addPQuantity" name="addPQuantity">
                             <span class="error text-danger" id="pquantityError"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addPPrice" class="form-label">Price</label>
+                            <input type="number" class="form-control" id="addPPrice" name="addPPrice">
+                            <span class="error text-danger" id="ppriceError"></span>
                         </div>
                         <div class="mb-3">
                             <label for="addPImage" class="form-label">Product Image</label>

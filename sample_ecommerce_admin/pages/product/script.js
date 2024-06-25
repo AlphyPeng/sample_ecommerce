@@ -1,8 +1,15 @@
 $(document).ready(function () {
-  productTable();
+  new DataTable("#productTable");
+
+  // View image file name when select
+  $("#editPImage").on("change", function () {
+    var fileName = $(this).val().split("\\").pop();
+    $(".file-name").text(fileName);
+  });
 });
 
 $(document).ready(function () {
+  // Add product modal START
   $("#addProductModal").submit(function (event) {
     event.preventDefault();
 
@@ -17,7 +24,6 @@ $(document).ready(function () {
       processData: false,
       success: function (response) {
         $("span.error").text("");
-        // Add Modal START
         if (response.status == "success") {
           Swal.fire({
             icon: "success",
@@ -35,39 +41,73 @@ $(document).ready(function () {
       },
     });
   });
-});
+  // Add product modal END
 
-// Add product modal START
-function productTable() {
-  $.ajax({
-    url: "code.php",
-    method: "GET",
-    dataType: "json",
-    success: function (response) {
-      var productTable = $("#productTable tbody");
-      productTable.empty();
+  // Edit product module START
+  $(".edit-button").on("click", function () {
+    // Get data from button
+    var id = $(this).data("id");
+    var name = $(this).data("name");
+    var description = $(this).data("description");
+    var quantity = $(this).data("quantity");
+    var price = $(this).data("price");
+    var image = $(this).data("image");
 
-      if (response.length > 0) {
-        $.each(response, function (index, product) {
-          var row = ` 
-                          <tr>
-                              <td>${product.product_name}</td>
-                              <td>${product.product_description}</td>
-                              <td>${product.product_quantity}</td>
-                              <td>₱ ${product.product_price}</td>
-                              <td class="product_image-container">
-                                 <img class="product-image " src="../../../img/products/${product.product_image}">
-                              </td>
-                              <td class="">
-                                  <button class="btn btn-success me-3" id="editAdmin"><i class="fas fa-pen"></i></button>
-                                  <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                              </td>
-                          </tr>`;
-          productTable.append(row);
-        });
-      }
-      new DataTable("#productTable");
-    },
+    // Set data to modal fields
+    $("#editPId").val(id);
+    $("#editPName").val(name);
+    $("#editPDescription").val(description);
+    $("#editPQuantity").val(quantity);
+    $("#editPPrice").val(price);
+    // if (image) {
+    //   $("#editPImage").attr("src", image).hide();
+    // } else {
+    //   $("#editPImage").hide();
+    // }
+
+    // Show modal
+    $("#editModal").modal("show");
   });
-}
-// Add product modal END
+
+  // Form submission handler
+  $("#editForm").submit(function (e) {
+    e.preventDefault(); // Prevent actual form submission
+
+    var formData = new FormData(this);
+
+    $.ajax({
+      type: "POST",
+      url: "code.php",
+      data: formData,
+      dataType: "json",
+      contentType: false,
+      processData: false,
+      success: function (response) {
+        $("span.error").text("");
+        if (response.status == "success") {
+          Swal.fire({
+            icon: "success",
+            title: "Success",
+            text: response.message,
+          }).then(function () {
+            window.location.href = "product.php";
+          });
+        }
+        if (response.errors) {
+          $.each(response.errors, function (key, message) {
+            $("#" + key).text(message);
+          });
+        }
+        if (response.status == "uploadError") {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: response.message,
+          });
+        }
+      },
+    });
+  });
+  // Edit product modal END
+  // Edit product module END
+});

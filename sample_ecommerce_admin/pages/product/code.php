@@ -3,7 +3,8 @@
 <?php
 $response = array('status' => '', 'message' => '', 'errors' => array());
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+// Add product START
+if (isset($_POST['addPName'], $_POST['addPDescription'], $_POST['addPQuantity'], $_POST['addPPrice'], $_FILES['addPImage']['name'])) {
     if (!empty($_POST['addPName']) && !empty($_POST['addPDescription']) && !empty($_POST['addPQuantity']) && !empty($_POST['addPPrice']) && !empty($_FILES['addPImage']['name'])) {
 
         $product_name = mysqli_real_escape_string($conn, $_POST['addPName']);
@@ -43,19 +44,67 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     echo json_encode($response);
 }
+// Add product END
 
-// Table product START
-if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    $query = "SELECT * FROM `products`";
-    $result = mysqli_query($conn, $query);
+// Edit product START
+if (isset($_POST['editPId'], $_POST['editPName'], $_POST['editPDescription'], $_POST['editPQuantity'], $_POST['editPPrice'])) {
+    if (!empty($_POST['editPId']) && !empty($_POST['editPName']) && !empty($_POST['editPDescription']) && !empty($_POST['editPQuantity']) && !empty($_POST['editPPrice'])) {
 
-    $data = [];
-    if (mysqli_num_rows($result) > 0) {
-        while ($row = mysqli_fetch_assoc($result)) {
-            $data[] = $row;
+        $id = $_POST['editPId'];
+        $product_name = mysqli_real_escape_string($conn, $_POST['editPName']);
+        $product_description = mysqli_real_escape_string($conn, $_POST['editPDescription']);
+        $product_quantity = mysqli_real_escape_string($conn, $_POST['editPQuantity']);
+        $product_price = mysqli_real_escape_string($conn, $_POST['editPPrice']);
+
+        $update_image = "";
+        if (!empty($_FILES['editPImage']['name'])) {
+            $product_image = $_FILES["editPImage"]["name"];
+            $tempname = $_FILES["editPImage"]["tmp_name"];
+
+            $allowed_types = ['image/jpeg', 'image/png', 'image/jpg'];
+            $file_type = mime_content_type($tempname);
+
+            if (!in_array($file_type, $allowed_types)) {
+                $response['status'] = 'uploadError';
+                $response['message'] = 'Only .jpg, .jpeg, and .png files are allowed.';
+                echo json_encode($response);
+                exit();
+            }
+            $folder = "../../../img/products/" . $product_image;
+
+            move_uploaded_file($tempname, $folder);
+            $update_image = ", product_image='$product_image'";
+        }
+
+        $sql = "UPDATE products SET product_name='$product_name',
+                product_description='$product_description',
+                product_quantity='$product_quantity',
+                product_price='$product_price'
+                $update_image
+              WHERE id='$id'";
+
+        if (mysqli_query($conn, $sql)) {
+            $response['status'] = 'success';
+            $response['message'] = 'You successfully added the product.';
+        }
+    } else {
+        if (empty($_POST['editPId'])) {
+            $response['errors']['xpnameError'] = "Product name is required.";
+        }
+        if (empty($_POST['editPName'])) {
+            $response['errors']['xpnameError'] = "Product name is required.";
+        }
+        if (empty($_POST['editPDescription'])) {
+            $response['errors']['xpdescriptionError'] = "Description is required.";
+        }
+        if (empty($_POST['editPQuantity'])) {
+            $response['errors']['xpquantityError'] = "Quantity is required.";
+        }
+        if (empty($_POST['editPPrice'])) {
+            $response['errors']['xppriceError'] = "Quantity is required.";
         }
     }
-    echo json_encode($data);
+    echo json_encode($response);
 }
-// Table product END
+// Edit product END
 ?>

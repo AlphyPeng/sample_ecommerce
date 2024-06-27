@@ -6,10 +6,10 @@
   text-align: center;
 }
 
-#productTable tbody td.product_image-container {
+#productTable tbody td.image-container, #customerTable tbody td.image-container {
   width: 15%;
 }
-#productTable tbody td.product_image-container img {
+#productTable tbody td.image-container img, #customerTable tbody td.image-container img {
   width: 50px;
 }
 

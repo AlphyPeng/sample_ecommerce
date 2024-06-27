@@ -1,5 +1,6 @@
 <?php
 include '../TEMPLATES/header.php';
+include 'code.php';
 ?>
 <div id="layoutSidenav_content">
     <main>
@@ -13,7 +14,7 @@ include '../TEMPLATES/header.php';
                 <div class="card-header">
                     <i class="fas fa-table me-1"></i>
                     Admin Accounts
-                </div>  
+                </div>
                 <div class="card-body">
                     <table id="adminTable">
                         <thead>
@@ -25,7 +26,32 @@ include '../TEMPLATES/header.php';
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Display the tr here from js -->
+                            <?php
+                            $query = "SELECT * FROM user";
+                            $users = mysqli_query($conn, $query);
+
+                            if (mysqli_num_rows($users) > 0) {
+                                foreach ($users as $user) {
+                                    if ($user['account_type'] == 1) {
+                            ?>
+                                        <tr>
+                                            <td><?php echo $user['first_name'], $user['last_name'] ?></td>
+                                            <td><?php echo $user['email_address'] ?></td>
+                                            <td><?php echo $user['username'] ?></td>
+                                            <td class="">
+                                                <button class="btn btn-success me-3 edit-button">
+                                                    <i class="fas fa-pen"></i>
+                                                </button>
+
+                                                <button class="btn btn-danger delete-button"><i class="fas fa-trash"></i></button>
+
+                                            </td>
+                                        </tr>
+                            <?php
+                                    }
+                                }
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -50,7 +76,37 @@ include '../TEMPLATES/header.php';
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Display the tr here from js -->
+                            <?php
+                            $query = "SELECT * FROM user";
+                            $users = mysqli_query($conn, $query);
+
+                            if (mysqli_num_rows($users) > 0) {
+                                foreach ($users as $user) {
+                                    if ($user['account_type'] == 2) {
+                            ?>
+                                        <tr>
+                                            <td><?php echo $user['first_name'], $user['last_name'] ?></td>
+                                            <td><?php echo $user['email_address'] ?></td>
+                                            <td><?php echo $user['username'] ?></td>
+                                            <td class="image-container">
+                                                <img class="image " src="../../../img/user_image/<?php echo $user['image'] ?>">
+                                            </td>
+                                            <td><?php echo $user['contact'] ?></td>
+                                            <td><?php echo $user['address'] ?></td>
+                                            <td class="">
+                                                <button class="btn btn-success me-3 edit-button">
+                                                    <i class="fas fa-pen"></i>
+                                                </button>
+
+                                                <button class="btn btn-danger delete-button"><i class="fas fa-trash"></i></button>
+
+                                            </td>
+                                        </tr>
+                            <?php
+                                    }
+                                }
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div>

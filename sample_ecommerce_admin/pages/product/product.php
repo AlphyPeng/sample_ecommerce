@@ -53,8 +53,8 @@ include 'code.php';
                                         <td><?php echo $product['product_description'] ?></td>
                                         <td><?php echo $product['product_quantity'] ?></td>
                                         <td>₱ <?php echo $product['product_price'] ?></td>
-                                        <td class="product_image-container">
-                                            <img class="product-image " src="../../../img/products/<?php echo $product['product_image'] ?>">
+                                        <td class="image-container">
+                                            <img class="image" src="../../../img/products/<?php echo $product['product_image'] ?>">
                                         </td>
                                         <td class="">
                                             <button class="btn btn-success me-3 edit-button" data-id="<?php echo $product['id'] ?>" data-name="<?php echo $product['product_name'] ?>" data-description="<?php echo $product['product_description'] ?>" data-quantity="<?php echo $product['product_quantity'] ?>" data-price="<?php echo $product['product_price'] ?>" data-image="<?php echo $product['product_image'] ?>">

@@ -10,8 +10,8 @@
     }
 }
 
-#productTable {
-	tbody td.product_image-container {
+#productTable, #customerTable {
+	tbody td.image-container {
 		width: 15%;
 		img {
 			width: 50px;

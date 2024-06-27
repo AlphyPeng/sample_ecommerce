@@ -1,7 +1,10 @@
 <?php
 session_name("admin_session");
 session_start();
-
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../../404.php");
+    exit();
+}
 // Logged In
 
 if (

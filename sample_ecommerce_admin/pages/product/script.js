@@ -110,4 +110,71 @@ $(document).ready(function () {
   });
   // Edit product modal END
   // Edit product module END
+
+  $(".delete-button").on("click", function () {
+    var productId = $(this).data("delete-id");
+    var row = $("#product-" + productId);
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(function (result) {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: "code.php",
+          type: "POST",
+          data: { deleteId: productId },
+          success: function (response) {
+            response = JSON.parse(response);
+            if (response.status == "success") {
+              Swal.fire({
+                icon: "success",
+                title: "Success",
+                text: response.message,
+              }).then(function () {
+                window.location.href = "product.php";
+              });
+            } else {
+              Swal.fire(
+                "Error!",
+                "There was an error deleting the product.",
+                "error"
+              );
+            }
+          },
+        });
+      }
+    });
+  });
 });
+
+// if (result.isConfirmed) {
+//   $.ajax({
+//     url: "code.php",
+//     type: "POST",
+//     data: { deleteId: productId },
+//     success: function (response) {
+//       if (response.status == "success") {
+//         row.remove();
+//         Swal.fire({
+//           icon: "success",
+//           title: "Success",
+//           text: response.message,
+//         }).then(function () {
+//           window.location.href = "product.php";
+//         });
+//       } else {
+//         Swal.fire(
+//           "Error!",
+//           "There was an error deleting the product.",
+//           "error"
+//         );
+//       }
+//     },
+//   });
+// }

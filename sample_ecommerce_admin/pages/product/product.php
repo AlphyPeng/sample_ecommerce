@@ -47,7 +47,7 @@ include 'code.php';
 
                                 foreach ($products as $product) {
                             ?>
-                                    <tr>
+                                    <tr id="product-<?php echo $product['id'] ?>">
                                         <td><?php echo $product['id'] ?> </td>
                                         <td><?php echo $product['product_name'] ?></td>
                                         <td><?php echo $product['product_description'] ?></td>
@@ -61,7 +61,8 @@ include 'code.php';
                                                 <i class="fas fa-pen"></i>
                                             </button>
 
-                                            </button> <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                            <button class="btn btn-danger delete-button" data-delete-id="<?php echo $product['id'] ?>"><i class="fas fa-trash"></i></button>
+
                                         </td>
                                     </tr>
                             <?php

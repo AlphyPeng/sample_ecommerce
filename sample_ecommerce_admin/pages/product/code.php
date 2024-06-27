@@ -107,4 +107,23 @@ if (isset($_POST['editPId'], $_POST['editPName'], $_POST['editPDescription'], $_
     echo json_encode($response);
 }
 // Edit product END
+
+// Dekete product START
+
+
+if (isset($_POST['deleteId'])) {
+    $id = $_POST['deleteId'];
+
+    // Prepare and execute the delete query
+    $delete_query = "DELETE FROM products WHERE id = $id";
+    $result = mysqli_query($conn, $delete_query);
+
+    if ($result) {
+        $response['status'] = 'success';
+        $response['message'] = 'You successfully deleted the product.';
+    }
+
+    echo json_encode($response);
+}
+// Dekete product END
 ?>

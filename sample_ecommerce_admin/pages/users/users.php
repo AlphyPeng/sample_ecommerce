@@ -5,10 +5,19 @@ include 'code.php';
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Users</h1>
-            <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item active">Products</li>
-            </ol>
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 class="mt-4">Users</h1>
+                    <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item active">Products</li>
+                    </ol>
+                </div>
+                <div>
+                    <button class="btn btn-primary add-button" data-bs-toggle="modal" data-bs-target="#addAccount">
+                        <i class="fas fa-plus me-2"></i>Add Accounts
+                    </button>
+                </div>
+            </div>
 
             <div class="card mb-4">
                 <div class="card-header">
@@ -113,6 +122,83 @@ include 'code.php';
             </div>
         </div>
     </main>
+
+    <!-- Add Account Modal START -->
+    <div class="modal fade" id="addAccount" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Account</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="addAccountModal" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Select Account to Create</label>
+                            <select class="form-select" id="accountType" name="accountType" aria-label="Default select example">
+                                <option selected value="0">Select Account Type</option>
+                                <option value="1">Admin</option>
+                                <option value="2">User</option>
+                            </select>
+                        </div>
+                        <div class="hide-all">
+                            <div class="row">
+                                <div class="col-lg-6 mb-3">
+                                    <label for="addAFname" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="addAFname" name="addAFname">
+                                    <span class="error text-danger" id="fnameError"></span>
+                                </div>
+                                <div class="col-lg-6 mb-3">
+                                    <label for="addALname" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="addALname" name="addALname">
+                                    <span class="error text-danger" id="lnameError"></span>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="addAEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="addAEmail" name="addAEmail">
+                                <span class="error text-danger" id="emailError"></span>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 mb-3">
+                                    <label for="addAUsername" class="form-label">Username</label>
+                                    <input type="text" class="form-control" id="addAUsername" name="addAUsername">
+                                    <span class="error text-danger" id="usernameError"></span>
+                                </div>
+                                <div class="col-lg-6 mb-3">
+                                    <label for="addAPassword" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="addAPassword" name="addAPassword">
+                                    <span class="error text-danger" id="passwordError"></span>
+                                </div>
+                            </div>
+                            <div class="mb-3 hide">
+                                <label for="addAContact" class="form-label">Contact</label>
+                                <input type="number" class="form-control" id="addAContact" name="addAContact">
+                                <span class="error text-danger" id="contactError"></span>
+                            </div>
+                            <div class="mb-3 hide">
+                                <label for="addAAddress" class="form-label">Address</label>
+                                <input type="text" class="form-control" id="addAAddress" name="addAAddress">
+                                <span class="error text-danger" id="addrError"></span>
+                            </div>
+                            <div class="mb-3 hide">
+                                <label for="addAImage" class="form-label">Image</label>
+                                <input type="file" class="form-control" id="addAImage" name="addAImage">
+                                <span class="error text-danger" id="pimageError"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Add Account Modal END -->
+    h
+
     <script src="script.js"></script>
     <?php
     include '../TEMPLATES/footer.php';

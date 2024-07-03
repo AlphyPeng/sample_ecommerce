@@ -2,6 +2,11 @@ $(document).ready(function () {
   new DataTable("#productTable");
 
   // View image file name when select
+  $("#addPImage").on("change", function () {
+    var fileName = $(this).val().split("\\").pop();
+    $(".file-name").text(fileName);
+  });
+
   $("#editPImage").on("change", function () {
     var fileName = $(this).val().split("\\").pop();
     $(".file-name").text(fileName);
@@ -31,6 +36,13 @@ $(document).ready(function () {
             text: response.message,
           }).then(function () {
             window.location.href = "product.php";
+          });
+        }
+        if (response.status == "addError") {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: response.message,
           });
         }
         if (response.errors) {

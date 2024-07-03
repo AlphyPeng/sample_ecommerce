@@ -2,7 +2,25 @@
 
 <?php
 $response = array('status' => '', 'message' => '', 'errors' => array());
+$update_image = "";
+if (!empty($_FILES['editPImage']['name'])) {
+    $product_image = $_FILES["editPImage"]["name"];
+    $tempname = $_FILES["editPImage"]["tmp_name"];
 
+    $allowed_types = ['image/jpeg', 'image/png', 'image/jpg'];
+    $file_type = mime_content_type($tempname);
+
+    if (!in_array($file_type, $allowed_types)) {
+        $response['status'] = 'uploadError';
+        $response['message'] = 'Only .jpg, .jpeg, and .png files are allowed.';
+        echo json_encode($response);
+        exit();
+    }
+    $folder = "../../../img/products/" . $product_image;
+
+    move_uploaded_file($tempname, $folder);
+    $update_image = ", product_image='$product_image'";
+}
 // Add product START
 if (isset($_POST['addPName'], $_POST['addPDescription'], $_POST['addPQuantity'], $_POST['addPPrice'], $_FILES['addPImage']['name'])) {
     if (!empty($_POST['addPName']) && !empty($_POST['addPDescription']) && !empty($_POST['addPQuantity']) && !empty($_POST['addPPrice']) && !empty($_FILES['addPImage']['name'])) {
@@ -12,14 +30,29 @@ if (isset($_POST['addPName'], $_POST['addPDescription'], $_POST['addPQuantity'],
         $product_quantity = mysqli_real_escape_string($conn, $_POST['addPQuantity']);
         $product_price = mysqli_real_escape_string($conn, $_POST['addPPrice']);
 
-        $product_image = $_FILES["addPImage"]["name"];
-        $tempname = $_FILES["addPImage"]["tmp_name"];
-        $folder = "../../../img/products/" . $product_image;
+        $add_image = "";
+        if (!empty($_FILES['addPImage']['name'])) {
+            $product_image = $_FILES["addPImage"]["name"];
+            $tempname = $_FILES["addPImage"]["tmp_name"];
 
-        move_uploaded_file($tempname, $folder);
+            $allowed_types = ['image/jpeg', 'image/png', 'image/jpg'];
+            $file_type = mime_content_type($tempname);
+
+            if (!in_array($file_type, $allowed_types)) {
+                $response['status'] = 'addError';
+                $response['message'] = 'Only .jpg, .jpeg, and .png files are allowed.';
+                echo json_encode($response);
+                exit();
+            }
+
+            $folder = "../../../img/products/" . $product_image;
+
+            move_uploaded_file($tempname, $folder);
+            $add_image = $product_image;
+        }
 
         $sql = "INSERT INTO `products` (`product_name`, `product_description`, `product_quantity`, `product_price`, `product_image`) 
-     VALUES ('$product_name', '$product_description', '$product_quantity', '$product_price', '$product_image')";
+     VALUES ('$product_name', '$product_description', '$product_quantity', '$product_price', '$add_image')";
 
         if (mysqli_query($conn, $sql)) {
             $response['status'] = 'success';
@@ -38,8 +71,8 @@ if (isset($_POST['addPName'], $_POST['addPDescription'], $_POST['addPQuantity'],
         if (empty($_POST['addPPrice'])) {
             $response['errors']['ppriceError'] = "Quantity is required.";
         }
-        if (empty($_POST['addPImage'])) {
-            $response['errors']['pimageError'] = "Product image is required.";
+        if (empty($_FILES['addPImage']['name'])) {
+            $response['errors']['xpimageError'] = "Product image is required.";
         }
     }
     echo json_encode($response);

@@ -107,10 +107,18 @@ include 'code.php';
                             <input type="number" class="form-control" id="addPPrice" name="addPPrice">
                             <span class="error text-danger" id="ppriceError"></span>
                         </div>
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label for="addPImage" class="form-label">Product Image</label>
                             <input type="file" class="form-control" id="addPImage" name="addPImage">
                             <span class="error text-danger" id="pimageError"></span>
+                        </div> -->
+                        <div class="upload-container mb-3">
+                            <input type="file" class="form-control" id="addPImage" name="addPImage">
+                            <label for="addPImage" class="form-label">
+                                <span>Upload Image</span>
+                            </label>
+                            <span class="file-name">No File chosen</span>
+                            <span class="error text-danger" id="xpimageError"></span>
                         </div>
                     </div>
                     <div class="modal-footer">

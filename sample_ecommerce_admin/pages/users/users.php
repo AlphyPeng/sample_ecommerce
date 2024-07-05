@@ -44,16 +44,15 @@ include 'code.php';
                                     if ($user['account_type'] == 1) {
                             ?>
                                         <tr>
-                                            <td><?php echo $user['first_name'], $user['last_name'] ?></td>
+                                            <td><?php echo $user['first_name'] . " " . $user['last_name'] ?></td>
                                             <td><?php echo $user['email_address'] ?></td>
                                             <td><?php echo $user['username'] ?></td>
                                             <td class="">
-                                                <button class="btn btn-success me-3 edit-button">
+                                                <button class="btn btn-success me-3 edit-admin" data-aid="<?php echo $user['id'] ?>" data-afname="<?php echo $user['first_name'] ?>" data-alname="<?php echo $user['last_name'] ?>" data-aemail="<?php echo $user['email_address'] ?>" data-auname="<?php echo $user['username'] ?>">
                                                     <i class="fas fa-pen"></i>
                                                 </button>
 
                                                 <button class="btn btn-danger delete-button"><i class="fas fa-trash"></i></button>
-
                                             </td>
                                         </tr>
                             <?php
@@ -103,7 +102,7 @@ include 'code.php';
                                             <td><?php echo $user['contact'] ?></td>
                                             <td><?php echo $user['address'] ?></td>
                                             <td class="">
-                                                <button class="btn btn-success me-3 edit-button">
+                                                <button class="btn btn-success me-3 edit-button" id="">
                                                     <i class="fas fa-pen"></i>
                                                 </button>
 
@@ -181,10 +180,18 @@ include 'code.php';
                                 <input type="text" class="form-control" id="addAAddress" name="addAAddress">
                                 <span class="error text-danger" id="addrError"></span>
                             </div>
-                            <div class="mb-3 hide">
+                            <!-- <div class="mb-3 hide">
                                 <label for="addAImage" class="form-label">Image</label>
                                 <input type="file" class="form-control" id="addAImage" name="addAImage">
                                 <span class="error text-danger" id="pimageError"></span>
+                            </div> -->
+                            <div class="upload-container mb-3 hide">
+                                <input type="file" class="form-control" id="addAImage" name="addAImage">
+                                <label for="addAImage" class="form-label">
+                                    <span>Upload Image</span>
+                                </label>
+                                <span class="file-name">No File chosen</span>
+                                <span class="error text-danger" id="xAimageError"></span>
                             </div>
                         </div>
                     </div>
@@ -197,7 +204,48 @@ include 'code.php';
         </div>
     </div>
     <!-- Add Account Modal END -->
-    h
+
+    <!-- Edit Account Admin Modal START -->
+    <div class="modal fade" id="editAdminModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit Admin</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="editAForm" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <input type="hidden" id="editPId" name="editPId">
+                        <div class="mb-3">
+                            <label for="editAFname" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="editAFname" name="editAFname">
+                            <span class="error text-danger" id="xafnameError"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editALname" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="editALname" name="editALname">
+                            <span class="error text-danger" id="xalnameError"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editAEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="editAEmail" name="editAEmail">
+                            <span class="error text-danger" id="xaemailError"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editAUname" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="editAUname" name="editAUname">
+                            <span class="error text-danger" id="xaunameError"></span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="saveAChanges">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Edit Account Admin Modal END -->
 
     <script src="script.js"></script>
     <?php

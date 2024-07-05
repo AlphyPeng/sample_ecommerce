@@ -63,7 +63,6 @@ $(document).ready(function () {
     var description = $(this).data("description");
     var quantity = $(this).data("quantity");
     var price = $(this).data("price");
-    var image = $(this).data("image");
 
     // Set data to modal fields
     $("#editPId").val(id);
@@ -71,11 +70,6 @@ $(document).ready(function () {
     $("#editPDescription").val(description);
     $("#editPQuantity").val(quantity);
     $("#editPPrice").val(price);
-    // if (image) {
-    //   $("#editPImage").attr("src", image).hide();
-    // } else {
-    //   $("#editPImage").hide();
-    // }
 
     // Show modal
     $("#editModal").modal("show");

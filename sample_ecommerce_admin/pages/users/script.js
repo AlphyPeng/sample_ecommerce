@@ -34,6 +34,7 @@ function selectAccount() {
 
 function editAdminModal() {
   $(".edit-admin").on("click", function () {
+    $("#editAId").val($(this).data("aid"));
     $("#editAFname").val($(this).data("afname"));
     $("#editALname").val($(this).data("alname"));
     $("#editAEmail").val($(this).data("aemail"));
@@ -45,6 +46,7 @@ function editAdminModal() {
 }
 
 $(document).ready(function () {
+  // Add Account Modal START
   $("#addAccountModal").submit(function (event) {
     event.preventDefault();
 
@@ -84,4 +86,78 @@ $(document).ready(function () {
       },
     });
   });
+  // Add Account Modal END
+
+  // Edit Admin Account Modal START
+  $("#editAForm").submit(function (e) {
+    e.preventDefault();
+
+    let formData = $(this).serialize();
+
+    $.ajax({
+      type: "POST",
+      url: "code.php",
+      data: formData,
+      dataType: "json",
+      success: function (response) {
+        $("span.error").text();
+
+        if (response.status === "success") {
+          Swal.fire({
+            icon: "success",
+            title: "Success",
+            text: response.message,
+          }).then(function () {
+            window.location.href = "users.php";
+          });
+        }
+        if (response.errors) {
+          $.each(response.errors, function (key, message) {
+            $("#" + key).text(message);
+          });
+        }
+      },
+      error: function (data) {
+        alert(data);
+      },
+    });
+  });
+  // Edit Admin Account Modal END
+
+  // Delete Admin Account START
+  $(".delete-admin").on("click", function () {
+    var delete_admin = $(this).data("deltadmin");
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(function (result) {
+      if (result.isConfirmed) {
+        $.ajax({
+          type: "POST",
+          url: "code.php",
+          data: {
+            admin_id: delete_admin,
+          },
+          dataType: "json",
+          success: function (response) {
+            if (response.status == "success") {
+              Swal.fire({
+                icon: "success",
+                title: "Success",
+                text: response.message,
+              }).then(function () {
+                window.location.href = "users.php";
+              });
+            }
+          },
+        });
+      }
+    });
+  });
+  // Delete Admin Account END
 });

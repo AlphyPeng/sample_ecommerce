@@ -43,7 +43,7 @@ include 'code.php';
                                 foreach ($users as $user) {
                                     if ($user['account_type'] == 1) {
                             ?>
-                                        <tr>
+                                        <tr class="del<?php echo $user['id'] ?>">
                                             <td><?php echo $user['first_name'] . " " . $user['last_name'] ?></td>
                                             <td><?php echo $user['email_address'] ?></td>
                                             <td><?php echo $user['username'] ?></td>
@@ -52,7 +52,7 @@ include 'code.php';
                                                     <i class="fas fa-pen"></i>
                                                 </button>
 
-                                                <button class="btn btn-danger delete-button"><i class="fas fa-trash"></i></button>
+                                                <button class="btn btn-danger delete-admin" data-deltadmin="<?php echo $user['id'] ?>"><i class="fas fa-trash"></i></button>
                                             </td>
                                         </tr>
                             <?php
@@ -213,9 +213,9 @@ include 'code.php';
                     <h5 class="modal-title" id="editModalLabel">Edit Admin</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form id="editAForm" enctype="multipart/form-data">
+                <form id="editAForm" method="POST">
                     <div class="modal-body">
-                        <input type="hidden" id="editPId" name="editPId">
+                        <input type="text" id="editAId" name="editAId">
                         <div class="mb-3">
                             <label for="editAFname" class="form-label">First Name</label>
                             <input type="text" class="form-control" id="editAFname" name="editAFname">
@@ -236,10 +236,15 @@ include 'code.php';
                             <input type="text" class="form-control" id="editAUname" name="editAUname">
                             <span class="error text-danger" id="xaunameError"></span>
                         </div>
+                        <div class="mb-3">
+                            <label for="editAPass" class="form-label">Password</label>
+                            <input type="text" class="form-control" id="editAPass" name="editAPass" placeholder="Change the Password">
+                            <span class="error text-danger" id="xapassError"></span>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" id="saveAChanges">Save changes</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
                     </div>
                 </form>
             </div>

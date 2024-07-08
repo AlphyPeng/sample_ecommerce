@@ -3,7 +3,7 @@
 <?php
 $response = array('status' => '', 'message' => '', 'errors' => array());
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if (isset($_POST['addAFname'], $_POST['addALname'], $_POST['addALname'], $_POST['addAEmail'], $_POST['addAUsername'], $_POST['addAPassword'], $_POST['accountType'])) {
     if (!empty($_POST['addAFname']) && !empty($_POST['addALname']) && !empty($_POST['addAEmail']) && !empty($_POST['addAUsername']) && !empty($_POST['addAPassword'])) {
         $utype = mysqli_real_escape_string($conn, $_POST['accountType']);
         $fname = mysqli_real_escape_string($conn, $_POST['addAFname']);
@@ -107,6 +107,58 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     echo json_encode($response);
 }
+
+// Update Admin START
+if (isset($_POST['editAId'], $_POST['editAFname'], $_POST['editALname'], $_POST['editAEmail'], $_POST['editAUname'], $_POST['editAPass'])) {
+    if (!empty($_POST['editAFname']) && !empty($_POST['editALname']) && !empty($_POST['editAEmail']) && !empty($_POST['editAUname'])) {
+        $aID = $_POST['editAId'];
+        $eAFname = mysqli_real_escape_string($conn, $_POST['editAFname']);
+        $eALname = mysqli_real_escape_string($conn, $_POST['editALname']);
+        $eAEmail = mysqli_real_escape_string($conn, $_POST['editAEmail']);
+        $eAUname = mysqli_real_escape_string($conn, $_POST['editAUname']);
+        $eAPass = password_hash($_POST['editAPass'], PASSWORD_BCRYPT);
+
+        if (!empty($_POST['editAPass'])) {
+            $sql = "UPDATE `user` SET `first_name`='$eAFname',`last_name`='$eALname',`email_address`='$eAEmail',`username`='$eAUname',`password`='$eAPass',`image`= NULL, `contact`=NULL, `address`=NULL,`account_type`= 1 WHERE `id` = '$aID'";
+            mysqli_query($conn, $sql);
+            $response['status'] = 'success';
+            $response['message'] = 'You successfully updated the user.';
+        } else {
+            $sql = "UPDATE `user` SET `first_name`='$eAFname', `last_name`='$eALname', `email_address`='$eAEmail', `username`='$eAUname', `image`= NULL, `contact`=NULL, `address`=NULL, `account_type`= 1 WHERE `id` = '$aID'";
+            mysqli_query($conn, $sql);
+            $response['status'] = 'success';
+            $response['message'] = 'You successfully updated the user.';
+        }
+    } else {
+        if (empty($_POST['editAFname'])) {
+            $response['errors']['xafnameError'] = 'First Name is required.';
+        }
+        if (empty($_POST['editALname'])) {
+            $response['errors']['xalnameError'] = 'Last Name is required.';
+        }
+        if (empty($_POST['editAEmail'])) {
+            $response['errors']['xaemailError'] = 'Email is required.';
+        }
+        if (empty($_POST['editAUname'])) {
+            $response['errors']['xaunameError'] = 'Username is required.';
+        }
+    }
+    echo json_encode($response);
+}
+// Update Admin END
+
+// Delete Admin START
+if (isset($_POST['admin_id'])) {
+    $admin = $_POST['admin_id'];
+    $result = mysqli_query($conn, "DELETE FROM `user` WHERE `id` = $admin");
+
+    if ($result) {
+        $response['status'] = 'success';
+        $response['message'] = 'You successfully deleted the user.';
+    }
+    echo json_encode($response);
+}
+// Delete Admin END
 
 ?>
 

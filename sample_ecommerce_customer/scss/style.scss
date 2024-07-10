@@ -208,7 +208,7 @@ a {
 		padding: calc(4rem - 30px) 0 4rem 0;
 	}
 	@media (min-width: $lg) {
-		padding: calc(8rem - 30px) 0 8rem 0;
+		padding: calc(4rem - 10px) 0 4rem 0;
 	}
 	
 	.intro-excerpt {
@@ -326,6 +326,7 @@ a {
 .section-title {
 	color: $dark;
 }
+
 .product-section {
 	padding: 7rem 0;
 
@@ -405,6 +406,17 @@ a {
 	}
 }
 
+// Product Details section
+
+.product-details {
+	.product-title {
+		color: $dark;
+	}
+	
+	.main-img {
+		height: 100%;
+	}	
+}
 
 // Why Choose us section
 .why-choose-section {

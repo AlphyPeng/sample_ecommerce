@@ -14,7 +14,7 @@ function getProductList() {
         $.each(response, function (index, product) {
           var pList = `
                     <div class="col-12 col-md-4 col-lg-3 mb-5">
-                    <a class="product-item" href="#">
+                    <a class="product-item" href="../product_details/product_details.php?id=${product.id}" target=”_blank”>
                         <img src="../../../img/products/${product.product_image}" class="img-fluid product-thumbnail">
                         <h3 class="product-title">${product.product_name}</h3>
                         <p>${product.product_description}</p>

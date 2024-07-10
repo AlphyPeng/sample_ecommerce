@@ -34,7 +34,7 @@ include 'code.php';
                         <h1 class="product-title text-bold my-3">
                             <?php echo $product['product_name'] ?>
                         </h1>
-                        <h1>₱ 80</h1>
+                        <h1>₱ <?php echo $product['product_price'] ?></h1>
                         <p>Total Quantity: <?php echo $product['product_quantity'] ?></p>
                         <div class="buttons d-flex my-3">
                             <div class="me-3">

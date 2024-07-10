@@ -160,6 +160,70 @@ if (isset($_POST['admin_id'])) {
 }
 // Delete Admin END
 
+// Display Data Customer in Modal START
+if (isset($_POST["getcustomer_id"])) {
+    $getcustomer_id = $_POST['getcustomer_id'];
+    $query = "SELECT * FROM user WHERE id = '$getcustomer_id'";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_array($result);
+    echo json_encode($row);
+}
+// Display Data Customer in Modal END
+
+// Update Customer START
+if (isset($_POST['editCId'], $_POST['editCFname'], $_POST['editCLname'], $_POST['editCEmail'], $_POST['editCUname'], $_POST['editCContact'], $_POST['editCAddress'], $_POST['editCPass'])) {
+    if (!empty($_POST['editCFname']) && !empty($_POST['editCLname']) && !empty($_POST['editCEmail']) && !empty($_POST['editCContact']) && !empty($_POST['editCAddress']) && !empty($_POST['editCUname'])) {
+        $cID = $_POST['editCId'];
+        $eCFname = mysqli_real_escape_string($conn, $_POST['editCFname']);
+        $eCLname = mysqli_real_escape_string($conn, $_POST['editCLname']);
+        $eCEmail = mysqli_real_escape_string($conn, $_POST['editCEmail']);
+        $eCUname = mysqli_real_escape_string($conn, $_POST['editCUname']);
+        $eCContact = mysqli_real_escape_string($conn, $_POST['editCContact']);
+        $eCAddress = mysqli_real_escape_string($conn, $_POST['editCAddress']);
+        $eCPass = password_hash($_POST['editCPass'], PASSWORD_BCRYPT);
+
+        if (!empty($_POST['editCPass'])) {
+            $sql = "UPDATE `user` SET `first_name`='$eCFname',`last_name`='$eCLname',`email_address`='$eCEmail',`username`='$eCUname',`password`='$eCPass', `contact`='$eCContact', `address`='$eCAddress', `account_type`= 2 WHERE `id` = '$cID'";
+            mysqli_query($conn, $sql);
+            $response['status'] = 'success';
+            $response['message'] = 'You successfully updated the user.';
+        } else {
+            $sql = "UPDATE `user` SET `first_name`='$eCFname', `last_name`='$eCLname', `email_address`='$eCEmail', `username`='$eCUname', `contact`='$eCContact', `address`='$eCAddress', `account_type`= 2 WHERE `id` = '$cID'";
+            mysqli_query($conn, $sql);
+            $response['status'] = 'success';
+            $response['message'] = 'You successfully updated the user.';
+        }
+    } else {
+        if (empty($_POST['editCFname'])) {
+            $response['errors']['xcfnameError'] = 'First Name is required.';
+        }
+        if (empty($_POST['editCLname'])) {
+            $response['errors']['xclnameError'] = 'Last Name is required.';
+        }
+        if (empty($_POST['editCEmail'])) {
+            $response['errors']['xcemailError'] = 'Email is required.';
+        }
+        if (empty($_POST['editCUname'])) {
+            $response['errors']['xcunameError'] = 'Username is required.';
+        }
+    }
+    echo json_encode($response);
+}
+// Update Customer END
+
+// Delete Customer START
+if (isset($_POST['customer_id'])) {
+    $customer = $_POST['customer_id'];
+    $result = mysqli_query($conn, "DELETE FROM `user` WHERE `id` = $customer");
+
+    if ($result) {
+        $response['status'] = 'success';
+        $response['message'] = 'You successfully deleted the user.';
+    }
+    echo json_encode($response);
+}
+// Delete Customer END
+
 ?>
 
 

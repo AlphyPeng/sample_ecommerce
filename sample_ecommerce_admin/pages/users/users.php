@@ -25,43 +25,45 @@ include 'code.php';
                     Admin Accounts
                 </div>
                 <div class="card-body">
-                    <table id="adminTable">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email Address</th>
-                                <th>Username</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $query = "SELECT * FROM user";
-                            $users = mysqli_query($conn, $query);
+                    <div class="table-responsive">
+                        <table id="adminTable">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email Address</th>
+                                    <th>Username</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $query = "SELECT * FROM user";
+                                $users = mysqli_query($conn, $query);
 
-                            if (mysqli_num_rows($users) > 0) {
-                                foreach ($users as $user) {
-                                    if ($user['account_type'] == 1) {
-                            ?>
-                                        <tr class="del<?php echo $user['id'] ?>">
-                                            <td><?php echo $user['first_name'] . " " . $user['last_name'] ?></td>
-                                            <td><?php echo $user['email_address'] ?></td>
-                                            <td><?php echo $user['username'] ?></td>
-                                            <td class="">
-                                                <button class="btn btn-success me-3 edit-admin" data-aid="<?php echo $user['id'] ?>" data-afname="<?php echo $user['first_name'] ?>" data-alname="<?php echo $user['last_name'] ?>" data-aemail="<?php echo $user['email_address'] ?>" data-auname="<?php echo $user['username'] ?>">
-                                                    <i class="fas fa-pen"></i>
-                                                </button>
+                                if (mysqli_num_rows($users) > 0) {
+                                    foreach ($users as $user) {
+                                        if ($user['account_type'] == 1) {
+                                ?>
+                                            <tr class="del<?php echo $user['id'] ?>">
+                                                <td><?php echo $user['first_name'] . " " . $user['last_name'] ?></td>
+                                                <td><?php echo $user['email_address'] ?></td>
+                                                <td><?php echo $user['username'] ?></td>
+                                                <td class="">
+                                                    <button class="btn btn-success me-3 edit-admin" data-aid="<?php echo $user['id'] ?>" data-afname="<?php echo $user['first_name'] ?>" data-alname="<?php echo $user['last_name'] ?>" data-aemail="<?php echo $user['email_address'] ?>" data-auname="<?php echo $user['username'] ?>">
+                                                        <i class="fas fa-pen"></i>
+                                                    </button>
 
-                                                <button class="btn btn-danger delete-admin" data-deltadmin="<?php echo $user['id'] ?>"><i class="fas fa-trash"></i></button>
-                                            </td>
-                                        </tr>
-                            <?php
+                                                    <button class="btn btn-danger delete-admin" data-deltadmin="<?php echo $user['id'] ?>"><i class="fas fa-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                <?php
+                                        }
                                     }
                                 }
-                            }
-                            ?>
-                        </tbody>
-                    </table>
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
@@ -71,52 +73,54 @@ include 'code.php';
                     Customer Accounts
                 </div>
                 <div class="card-body">
-                    <table id="customerTable">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email Address</th>
-                                <th>Username</th>
-                                <th>Image</th>
-                                <th>Contact</th>
-                                <th>Address</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $query = "SELECT * FROM user";
-                            $users = mysqli_query($conn, $query);
+                    <div class="table-responsive">
+                        <table id="customerTable">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email Address</th>
+                                    <th>Username</th>
+                                    <th>Image</th>
+                                    <th>Contact</th>
+                                    <th>Address</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $query = "SELECT * FROM user";
+                                $users = mysqli_query($conn, $query);
 
-                            if (mysqli_num_rows($users) > 0) {
-                                foreach ($users as $user) {
-                                    if ($user['account_type'] == 2) {
-                            ?>
-                                        <tr>
-                                            <td><?php echo $user['first_name'], $user['last_name'] ?></td>
-                                            <td><?php echo $user['email_address'] ?></td>
-                                            <td><?php echo $user['username'] ?></td>
-                                            <td class="image-container">
-                                                <img class="image " src="../../../img/user_image/<?php echo $user['image'] ?>">
-                                            </td>
-                                            <td><?php echo $user['contact'] ?></td>
-                                            <td><?php echo $user['address'] ?></td>
-                                            <td class="">
-                                                <button class="btn btn-success me-3 edit-button" id="">
-                                                    <i class="fas fa-pen"></i>
-                                                </button>
+                                if (mysqli_num_rows($users) > 0) {
+                                    foreach ($users as $user) {
+                                        if ($user['account_type'] == 2) {
+                                ?>
+                                            <tr>
+                                                <td><?php echo $user['first_name'] . " " . $user['last_name'] ?></td>
+                                                <td><?php echo $user['email_address'] ?></td>
+                                                <td><?php echo $user['username'] ?></td>
+                                                <td class="image-container">
+                                                    <img class="image " src="../../../img/user_image/<?php echo $user['image'] ?>">
+                                                </td>
+                                                <td><?php echo $user['contact'] ?></td>
+                                                <td><?php echo $user['address'] ?></td>
+                                                <td class="">
+                                                    <button class="btn btn-success me-3 edit-customer" data-cid="<?php echo $user['id'] ?>">
+                                                        <i class="fas fa-pen"></i>
+                                                    </button>
 
-                                                <button class="btn btn-danger delete-button"><i class="fas fa-trash"></i></button>
+                                                    <button class="btn btn-danger delete-customer" data-deltcustomer="<?php echo $user['id'] ?>"><i class="fas fa-trash"></i></button>
 
-                                            </td>
-                                        </tr>
-                            <?php
+                                                </td>
+                                            </tr>
+                                <?php
+                                        }
                                     }
                                 }
-                            }
-                            ?>
-                        </tbody>
-                    </table>
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -215,7 +219,7 @@ include 'code.php';
                 </div>
                 <form id="editAForm" method="POST">
                     <div class="modal-body">
-                        <input type="text" id="editAId" name="editAId">
+                        <input type="hidden" id="editAId" name="editAId">
                         <div class="mb-3">
                             <label for="editAFname" class="form-label">First Name</label>
                             <input type="text" class="form-control" id="editAFname" name="editAFname">
@@ -251,6 +255,64 @@ include 'code.php';
         </div>
     </div>
     <!-- Edit Account Admin Modal END -->
+
+
+    <!-- Edit Account Customer Modal START -->
+    <div class="modal fade" id="editCustomerModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit Customer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="editCForm" method="POST">
+                    <div class="modal-body">
+                        <input type="text" id="editCId" name="editCId">
+                        <div class="mb-3">
+                            <label for="editCFname" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="editCFname" name="editCFname">
+                            <span class="error text-danger" id="xcfnameError"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editCLname" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="editCLname" name="editCLname">
+                            <span class="error text-danger" id="xclnameError"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editCEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="editCEmail" name="editCEmail">
+                            <span class="error text-danger" id="xcemailError"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editCUname" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="editCUname" name="editCUname">
+                            <span class="error text-danger" id="xcunameError"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editCContact" class="form-label">Contact</label>
+                            <input type="num" class="form-control" id="editCContact" name="editCContact">
+                            <span class="error text-danger" id="xccontactError"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editCAddress" class="form-label">Address</label>
+                            <input type="text" class="form-control" id="editCAddress" name="editCAddress">
+                            <span class="error text-danger" id="xcaddressError"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editCPass" class="form-label">Password</label>
+                            <input type="text" class="form-control" id="editCPass" name="editCPass" placeholder="Change the Password">
+                            <span class="error text-danger" id="xcpassError"></span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Edit Account Customer Modal END -->
 
     <script src="script.js"></script>
     <?php

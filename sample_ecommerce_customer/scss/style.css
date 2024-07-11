@@ -317,7 +317,6 @@ a.more {
   display: block;
   position: relative;
   padding-bottom: 50px;
-  cursor: pointer;
 }
 .product-section .product-item .product-thumbnail {
   height: 270px;
@@ -340,10 +339,6 @@ a.more {
 }
 .product-section .product-item .icon-cross {
   position: absolute;
-  width: 35px;
-  height: 35px;
-  display: inline-block;
-  background: #2f2f2f;
   bottom: 15px;
   left: 50%;
   transform: translateX(-50%);

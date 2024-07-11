@@ -1,5 +1,6 @@
 <?php
 include '../TEMPLATES/header.php';
+include '../../config.php';
 ?>
 <!-- Start Hero Section -->
 <div class="hero">
@@ -37,53 +38,44 @@ include '../TEMPLATES/header.php';
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td class="product-thumbnail">
-									<img src="images/product-1.png" alt="Image" class="img-fluid">
-								</td>
-								<td class="product-name">
-									<h2 class="h5 text-black">Product 1</h2>
-								</td>
-								<td>$49.00</td>
-								<td>
-									<div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
-										<div class="input-group-prepend">
-											<button class="btn btn-outline-black decrease" type="button">&minus;</button>
-										</div>
-										<input type="text" class="form-control text-center quantity-amount" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-										<div class="input-group-append">
-											<button class="btn btn-outline-black increase" type="button">&plus;</button>
-										</div>
-									</div>
+							<?php
+							$query = "SELECT * FROM cart 
+							INNER JOIN products ON cart.product_id = products.id
+							INNER JOIN user ON cart.customer_id = user.id
+							";
+							$products = mysqli_query($conn, $query);
 
-								</td>
-								<td>$49.00</td>
-								<td><a href="#" class="btn btn-black btn-sm">X</a></td>
-							</tr>
+							if (mysqli_num_rows($products) > 0) {
 
-							<tr>
-								<td class="product-thumbnail">
-									<img src="images/product-2.png" alt="Image" class="img-fluid">
-								</td>
-								<td class="product-name">
-									<h2 class="h5 text-black">Product 2</h2>
-								</td>
-								<td>$49.00</td>
-								<td>
-									<div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
-										<div class="input-group-prepend">
-											<button class="btn btn-outline-black decrease" type="button">&minus;</button>
-										</div>
-										<input type="text" class="form-control text-center quantity-amount" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-										<div class="input-group-append">
-											<button class="btn btn-outline-black increase" type="button">&plus;</button>
-										</div>
-									</div>
-
-								</td>
-								<td>$49.00</td>
-								<td><a href="#" class="btn btn-black btn-sm">X</a></td>
-							</tr>
+								foreach ($products as $product) {
+									if ($_SESSION['user_id'] === $product['customer_id']) {
+							?>
+										<tr>
+											<td class="product-thumbnail">
+												<img src="../../../img/products/<?php echo $product['product_image'] ?>" alt="Image" class="img-fluid">
+											</td>
+											<td class="product-name">
+												<h2 class="h5 text-black"><?php echo $product['cart_product_name'] ?></h2>
+											</td>
+											<td>₱ <?php echo $product['product_price'] ?></td>
+											<td>
+												<div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
+													<div class="input-group-prepend">
+														<button class="btn btn-outline-black decrease" type="button">&minus;</button>
+													</div>
+													<input type="text" class="form-control text-center quantity-amount" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+													<div class="input-group-append">
+														<button class="btn btn-outline-black increase" type="button">&plus;</button>
+													</div>
+												</div>
+											</td>
+											<td>$49.00</td>
+											<td><a href="#" class="btn btn-black btn-sm">X</a></td>
+										</tr>
+							<?php }
+								}
+							}
+							?>
 						</tbody>
 					</table>
 				</div>

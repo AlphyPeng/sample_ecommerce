@@ -151,6 +151,24 @@ a.more {
 .custom-navbar .custom-navbar-cta .nav-item .nav-link i {
   font-size: 20px;
 }
+.custom-navbar .custom-navbar-cta .nav-item .nav-link .inline {
+  position: relative;
+  display: inline-block;
+}
+.custom-navbar .custom-navbar-cta .nav-item .nav-link .inline .cart-quantity-bg {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+}
+.custom-navbar .custom-navbar-cta .nav-item .nav-link .inline .cart-quantity-bg span.cart-quantity {
+  font-size: 12px;
+  font-weight: bold;
+}
 .custom-navbar .custom-navbar-cta .nav-item .dropdown-menu {
   display: none;
   padding: 0;

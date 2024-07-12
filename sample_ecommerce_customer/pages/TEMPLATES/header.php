@@ -121,7 +121,12 @@ if (
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="../cart/cart.php">
-                                <i class="bi bi-cart"></i>
+                                <div class="inline">
+                                    <i class="bi bi-cart"></i>
+                                    <div class="cart-quantity-bg d-flex justify-content-center align-items-center">
+                                        <span class="cart-quantity"></span>
+                                    </div>
+                                </div>
                             </a>
                         </li>
                     <?php } ?>
@@ -131,3 +136,21 @@ if (
 
     </nav>
     <!-- End Header/Navigation -->
+
+    <script>
+        $(document).ready(function() {
+            updateCartQuantity();
+        });
+
+        function updateCartQuantity() {
+            $.ajax({
+                url: "../../update.php",
+                type: "GET",
+                success: function(data) {
+                    $(".cart-quantity").text(data);
+                },
+            });
+        }
+
+        setInterval(updateCartQuantity, 500);
+    </script>

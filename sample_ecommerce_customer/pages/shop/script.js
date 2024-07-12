@@ -23,18 +23,26 @@ function addToCart() {
             icon: "success",
             title: "Success",
             text: response.message,
-          }).then(function () {
-            window.location.href = "shop.php";
           });
-        } else {
-          alert("Aw");
+        } else if (response.status == "error") {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: response.message,
+          });
+        } else if (response.status == "error") {
+          Swal.fire({
+            icon: "login",
+            title: "Error",
+            text: response.message,
+          }).then(function () {
+            window.location.href = "../login/login.php";
+          });
         }
       },
-      error: function (xhr, status, error) {
-        // Handle error here (optional)
-        console.error(error);
-        alert("Failed to add product to cart.");
-      },
+      // error: function () {
+      //   window.location.href = "../login/login.php";
+      // },
     });
   });
 }

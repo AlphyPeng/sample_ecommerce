@@ -169,6 +169,25 @@ a {
 				i {
 					font-size: 20px;
 				}
+				.inline {
+					position: relative;
+					display: inline-block;
+					.cart-quantity-bg {
+						position: absolute;
+						top: -5px;
+						right: -10px;
+						width: 20px;
+						height: 20px;
+						background-color: red;
+						color: white;
+						border-radius: 50%;
+						span.cart-quantity {
+							font-size: 12px;
+							font-weight: bold;
+						}
+					}
+			
+				}
 			}
 			.dropdown-menu {
 				display: none;

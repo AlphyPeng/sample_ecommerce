@@ -4,7 +4,8 @@ session_name("customer_session");
 session_start();
 
 if (isset($_SESSION['user_id'])) {
-    $sql = "SELECT * FROM cart";
+    $customer_id = $_SESSION['user_id'];
+    $sql = "SELECT * FROM cart WHERE customer_id = '$customer_id'";
     $result = mysqli_query($conn, $sql);
 
     if ($result) {

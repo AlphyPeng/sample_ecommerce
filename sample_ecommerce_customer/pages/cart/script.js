@@ -53,23 +53,23 @@ function multiplyTotal(row) {
   var amount = qtyAmount * cost;
 
   $(row).find(".priceTotal").text(amount);
+  $(row).find(".amount").val(amount);
 }
 
 function cartTotal() {
   var sum = 0;
-  var totalPrice = $(".priceTotal");
 
   $(".priceTotal").each(function () {
     sum = sum + parseInt($(this).text());
   });
 
   $(".total").text(sum);
+  $("#totalAmount").val(sum);
 }
 
 function deleteCart() {
   $(".delete-cart").on("click", function () {
     var delete_cart = $(this).data("deltcart");
-    var cartRow = $(this).closest(".cart-row");
 
     $.ajax({
       type: "POST",
@@ -83,7 +83,7 @@ function deleteCart() {
             title: "Success",
             text: response.message,
           }).then(function () {
-            cartRow.remove();
+            window.location.href = "cart.php";
           });
         }
       },

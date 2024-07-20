@@ -55,7 +55,7 @@ if (
     <!-- Sweet Alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <title>Furni Free Bootstrap 5 Template for Furniture and Interior Design Websites by Untree.co </title>
+    <title>QC Forni</title>
 </head>
 
 <body>
@@ -63,7 +63,7 @@ if (
     <!-- Start Header/Navigation -->
     <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
         <div class="container">
-            <a class="navbar-brand" href="../main/main.php">Furni<span>.</span></a>
+            <a class="navbar-brand" href="../main/main.php">QC Forni<span>.</span></a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

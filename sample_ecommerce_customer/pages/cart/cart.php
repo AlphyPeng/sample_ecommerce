@@ -83,7 +83,9 @@ include '../TEMPLATES/header.php';
 															</div>
 														</div>
 													</td>
-													<td class="ptotal">₱ <span class="priceTotal"></span></td>
+													<td class="ptotal">₱ <span class="priceTotal"></span>
+														<input type="hidden" class="amount" name="amount[]" value="">
+													</td>
 													<td>
 														<p class="btn btn-black btn-sm delete-cart"
 															data-deltcart="<?php echo $product['cart_id'] ?>">X</p>
@@ -102,7 +104,11 @@ include '../TEMPLATES/header.php';
 											</script>
 										<?php }
 									}
-								}
+								} else { ?>
+									<tr>
+										<td colspan="6">No Data Listed.</td>
+									</tr>
+								<?php }
 								?>
 
 							</tbody>
@@ -148,6 +154,7 @@ include '../TEMPLATES/header.php';
 								</div>
 								<div class="col-md-6 text-right">
 									<strong class="text-black">₱ <span class="total"></span></strong>
+									<input type="hidden" id="totalAmount" name="total" value="">
 								</div>
 							</div>
 

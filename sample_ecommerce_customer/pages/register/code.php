@@ -15,8 +15,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $contact_no = mysqli_real_escape_string($conn, $_POST['regcontact']);
             $address = mysqli_real_escape_string($conn, $_POST['regaddress']);
 
-            $check_useremail = "SELECT * FROM user WHERE username='$username' OR email_address='$email'";
-            $result = mysqli_query($conn, $check_useremail);
+            $account_type = 2;
+
+            $check_useremail = $conn->prepare("SELECT * FROM user WHERE username = ? OR email_address = ?");
+            $check_useremail->bind_param("ss", $username, $email);
+            $check_useremail->execute();
+            $result = $check_useremail->get_result();
             if (mysqli_num_rows($result) > 0) {
                 while ($row = mysqli_fetch_assoc($result)) {
                     if ($row['username'] == $username) {
@@ -28,10 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 }
             } else {
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-                $sql = "INSERT INTO user(first_name, last_name, email_address, username, password, contact, address, account_type) 
-             VALUES('$first_name', '$last_name','$email', '$username', '$hashed_password', '$contact_no', '$address', 2)";
-
-                if (mysqli_query($conn, $sql)) {
+                $sql = $conn->prepare("INSERT INTO user (first_name, last_name, email_address, username, password, contact, address, account_type) 
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                $sql->bind_param("sssssisi", $first_name, $last_name, $email, $username, $hashed_password, $contact_no, $address, $account_type);
+                if ($sql->execute()) {
                     $response['status'] = 'success';
                     $response['message'] = 'You successfully registered.';
                 } else {
@@ -44,14 +48,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // $response['message'] = 'Password and Confirm Password do not match.';
         }
     } else {
-        if (empty($_POST['regfname'])) $response['errors']['fnameError'] = "First name is required.";
-        if (empty($_POST['reglname'])) $response['errors']['lnameError'] = "Last name is required.";
-        if (empty($_POST['regemail'])) $response['errors']['emailError'] = "Email is required.";
-        if (empty($_POST['regusername'])) $response['errors']['unameError'] = "Username is required.";
-        if (empty($_POST['regpass'])) $response['errors']['passError'] = "Password is required.";
-        if (empty($_POST['regconpass'])) $response['errors']['conpassError'] = "Confirm Password is required.";
-        if (empty($_POST['regcontact'])) $response['errors']['contactError'] = "Contact number is required.";
-        if (empty($_POST['regaddress'])) $response['errors']['addressError'] = "Address is required.";
+        if (empty($_POST['regfname']))
+            $response['errors']['fnameError'] = "First name is required.";
+        if (empty($_POST['reglname']))
+            $response['errors']['lnameError'] = "Last name is required.";
+        if (empty($_POST['regemail']))
+            $response['errors']['emailError'] = "Email is required.";
+        if (empty($_POST['regusername']))
+            $response['errors']['unameError'] = "Username is required.";
+        if (empty($_POST['regpass']))
+            $response['errors']['passError'] = "Password is required.";
+        if (empty($_POST['regconpass']))
+            $response['errors']['conpassError'] = "Confirm Password is required.";
+        if (empty($_POST['regcontact']))
+            $response['errors']['contactError'] = "Contact number is required.";
+        if (empty($_POST['regaddress']))
+            $response['errors']['addressError'] = "Address is required.";
 
         $response['status'] = 'error';
     }
@@ -59,5 +71,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     echo json_encode($response);
 }
 ?>
-
-

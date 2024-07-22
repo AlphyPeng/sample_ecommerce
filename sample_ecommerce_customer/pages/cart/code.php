@@ -48,6 +48,12 @@ if (isset($_SESSION["user_id"])) {
         mysqli_query($conn, $query);
 
         echo json_encode($response);
+    } else {
+        $response['status'] = 'error';
+        $response['message'] = 'Cart is empty.';
+
+        echo json_encode($response);
+
     }
 }
 

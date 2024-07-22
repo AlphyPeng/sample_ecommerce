@@ -114,6 +114,16 @@ function checkOut() {
           }).then(function () {
             window.location.href = "cart.php";
           });
+        } else {
+          if (response.status == "error") {
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: response.message,
+            }).then(function () {
+              window.location.href = "cart.php";
+            });
+          }
         }
       },
       error: function (xhr, ajaxOptions, thrownError) {

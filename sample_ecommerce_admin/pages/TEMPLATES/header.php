@@ -106,7 +106,7 @@ if (
                         <div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
                             data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                <a class="nav-link" href="../users/users.php">
+                                <a class="nav-link" href="../topay/topay.php">
                                     <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
                                     To Pay
                                 </a>

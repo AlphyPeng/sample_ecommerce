@@ -1,20 +1,38 @@
-#adminTable th, #adminTable td, #customerTable th, #customerTable td, #productTable th, #productTable td {
+#adminTable th,
+#adminTable td,
+#customerTable th,
+#customerTable td,
+#productTable th,
+#productTable td {
   text-align: left;
 }
 
-#adminTable td.dt-empty, #customerTable td.dt-empty, #productTable td.dt-empty {
+#adminTable td.dt-empty,
+#customerTable td.dt-empty,
+#productTable td.dt-empty {
   text-align: center;
 }
 
-#productTable tbody td.image-container, #customerTable tbody td.image-container {
+#productTable tbody td.image-container,
+#customerTable tbody td.image-container {
   width: 15%;
 }
-#productTable tbody td.image-container img, #customerTable tbody td.image-container img {
+#productTable tbody td.image-container img,
+#customerTable tbody td.image-container img {
   width: 50px;
 }
 
 table {
   max-width: 100%;
+}
+
+tbody td.image-container {
+  width: 120px;
+  margin: auto;
+}
+tbody td.image-container img {
+  width: 80px;
+  margin: auto;
 }
 
 .add-button {

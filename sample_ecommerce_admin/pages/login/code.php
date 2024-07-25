@@ -10,8 +10,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $useremail = mysqli_real_escape_string($conn, $_POST['loguseremail']);
         $password = mysqli_real_escape_string($conn, $_POST['logpass']);
 
-        $query = "SELECT * FROM user WHERE email_address='$useremail' OR username='$useremail'";
-        $result  = mysqli_query($conn, $query);
+        $query = $conn->prepare("SELECT * FROM user WHERE email_address = ? OR username = ?");
+        $query->bind_param("ss", $useremail, $useremail);
+        $query->execute();
+        $result  = $query->get_result();
 
         if (mysqli_num_rows($result) === 1) {
             $row = mysqli_fetch_assoc($result);

@@ -44,11 +44,13 @@ include '../TEMPLATES/header.php';
 									products.product_image, 
 									products.product_price,
 									cart.cart_product_name, 
-									cart.cart_quantity, 
+									cart.cart_quantity,
+									cart.status, 
 									user.id AS user_id
 								FROM cart 
 								INNER JOIN products ON cart.product_id = products.id
-								INNER JOIN user ON cart.customer_id = user.id";
+								INNER JOIN user ON cart.customer_id = user.id
+								WHERE status = 1";
 
 								$products = mysqli_query($conn, $query);
 
@@ -56,13 +58,14 @@ include '../TEMPLATES/header.php';
 
 									foreach ($products as $product) {
 										if (isset($_SESSION['user_id'])) {
-											if ($_SESSION['user_id'] == $product['user_id']) {
+											if ($_SESSION['user_id'] == $product['user_id'] && $product['status'] == 1) {
 												?>
 												<tr class="cart-row">
 													<td class="product-thumbnail">
 														<img src="../../../img/products/<?php echo $product['product_image'] ?>"
 															alt="Image" class="img-fluid">
 														<input type="hidden" name="cartId[]" value="<?php echo $product['cart_id'] ?>">
+														<input type="hidden" name="userId[]" value="<?php echo $_SESSION['user_id'] ?>">
 													</td>
 													<td class="product-name">
 														<h2 class="h5 text-black"><?php echo $product['cart_product_name'] ?></h2>

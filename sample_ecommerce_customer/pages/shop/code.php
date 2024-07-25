@@ -12,16 +12,17 @@ if (isset($_SESSION['user_id'])) {
         $customer_id = $_SESSION['user_id'];
         $name_product = $_POST['product_name'];
 
-        $query = "SELECT * FROM cart WHERE product_id = '$product_id' AND customer_id = '$customer_id'";
+        $query = "SELECT * FROM cart WHERE product_id = '$product_id' AND customer_id = '$customer_id' AND status = 1";
 
         $result = mysqli_query($conn, $query);
+        $row = mysqli_fetch_assoc($result);
 
         if (mysqli_num_rows($result) > 0) {
             $response['status'] = 'error';
             $response['message'] = 'You already Add to Cart the product.';
         } else {
-            $sql = "INSERT INTO cart (product_id, customer_id, cart_product_name, cart_quantity) 
-            VALUES ('$product_id', '$customer_id', '$name_product', 1)";
+            $sql = "INSERT INTO cart (product_id, customer_id, cart_product_name, cart_quantity, status) 
+            VALUES ('$product_id', '$customer_id', '$name_product', 1, 1)";
 
             $sql_result = mysqli_query($conn, $sql);
 

@@ -10,6 +10,7 @@ if (isset($_POST['purchase_id'])) {
     $query = $conn->prepare("SELECT * FROM total_amount_purchase 
     INNER JOIN purchase ON purchase.purchase_id = total_amount_purchase.purchase_id
     INNER JOIN cart ON cart.id = purchase.cart_id 
+    INNER JOIN products ON products.id = cart.product_id
     WHERE purchase.purchase_id = ?");
     $query->bind_param("s", $purchase_id);
     $query->execute();

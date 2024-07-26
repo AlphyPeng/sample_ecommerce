@@ -22,7 +22,7 @@ function viewProduct() {
         data.forEach((pay) => {
           var tableRow = ` <tr class="nc">
                                 <td class="image-container">
-                                    <img class="image" src="../../../img/products/bowl-3.png" alt="">
+                                    <img class="image" src="../../../img/products/${pay.product_image}" alt="">
                                 </td>
                                 <td class="product">${pay.cart_product_name}</td>
                                 <td class="quantity">${pay.purchase_quantity}</td>
